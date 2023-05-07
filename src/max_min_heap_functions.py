@@ -6,7 +6,44 @@ class MaxMinHeap:
         self.array = array  # This array is used to implement the heap
 
     def heapify(self, i):
-        pass
+        """
+        if the depth is even: seek max item and swap if needed
+        if the depth is odd: seek min item and swap if needed
+        :return:
+        """
+        # Get sons and depth
+        r = right(i)
+        l = left(i)
+        depth = depth_of(i)
+
+        if depth % 2 == 0:  # depth is even
+            if self._index_valid(l) and self.array[l] > self.array[i]:  # is left son is valid and larger
+                max_index = l
+            else:
+                max_index = i
+            if self._index_valid(r) and self.array[r] > self.array[max_index]:  # is right son is valid and larger
+                max_index = r
+            if max_index != i:  # if index i is max then swap is not needed. else swap is needed and continuation
+                # commit swap
+                tmp = self.array[i]
+                self.array[i] = self.array[max_index]
+                self.array[max_index] = tmp
+                # call heapify again
+                self.heapify(max_index)
+        else:
+            if self._index_valid(l) and self.array[l] < self.array[i]:  # is left son is valid and smaller
+                min_index = l
+            else:
+                min_index = i
+            if self._index_valid(r) and self.array[r] < self.array[min_index]:  # is right son is valid and smaller
+                min_index = r
+            if min_index != i:  # if index i is min then swap is not needed. else swap is needed and continuation
+                # commit swap
+                tmp = self.array[i]
+                self.array[i] = self.array[min_index]
+                self.array[min_index] = tmp
+                # call heapify again
+                self.heapify(min_index)
 
     def build_heap(self):
         pass
@@ -23,6 +60,7 @@ class MaxMinHeap:
     def heap_delete(self, i):
         pass
 
+    # Private functions
     def _index_valid(self, i) -> bool:
         """
         Is the index in range of the array length

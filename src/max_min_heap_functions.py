@@ -23,13 +23,27 @@ def heap_delete(a, i):
 
 
 # Private functions
-def _parent(a, i):
-    pass
+def _parent(i):
+    """
+    :param i: the index of a Node
+    :return: The Node's parent
+    """
+    if i == 0:
+        raise IndexError("Tried to find the parent of root")
+    return i / 2  # python floors the result be default
 
 
-def _left(a, i):
-    pass
+def _left(i):
+    """
+    :param i: the index of a Node
+    :return: The Node's left son
+    """
+    return 2 * i
 
 
-def _right(a, i):
-    pass
+def _right(i):
+    """
+    :param i: the index of a Node
+    :return: The Node's right son
+    """
+    return 2 * i + 1

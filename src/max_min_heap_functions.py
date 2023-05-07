@@ -1,6 +1,9 @@
+import math
+
+
 class MaxMinHeap:
     def __init__(self, array: list):
-        pass
+        self.array = array  # This array is used to implement the heap
 
     def heapify(self, i):
         pass
@@ -20,6 +23,12 @@ class MaxMinHeap:
     def heap_delete(self, i):
         pass
 
+    def _index_valid(self, i) -> bool:
+        """
+        Is the index in range of the array length
+        """
+        return 0 <= i < len(self.array)
+
 
 # Utility functions
 def parent(i):
@@ -29,7 +38,7 @@ def parent(i):
     """
     if i == 0:
         raise IndexError("Tried to find the parent of root")
-    return i / 2  # python floors the result be default
+    return int(i / 2)  # python floors the result be default when converting to int
 
 
 def left(i):
@@ -46,3 +55,10 @@ def right(i):
     :return: The Node's right son
     """
     return 2 * i + 1
+
+
+def depth_of(i):
+    """
+    :returns the depth of i in the heap
+    """
+    return int(math.log(i, base=2))  # python floors the result be default when converting to int

@@ -4,12 +4,12 @@ import math
 class MaxMinHeap:
     def __init__(self, array: list):
         self.array = array  # This array is used to implement the heap
+        self.heap_size = len(self.array)
 
     def heapify(self, i):
         """
-        if the depth is even: seek max item and swap if needed
-        if the depth is odd: seek min item and swap if needed
-        :return:
+        if the depth is even: seek max item and swap if needed and recursive call
+        if the depth is odd: seek min item and swap if needed and recursive call
         """
         # Get sons and depth
         r = right(i)
@@ -46,7 +46,10 @@ class MaxMinHeap:
                 self.heapify(min_index)
 
     def build_heap(self):
-        pass
+        self.heap_size = len(self.array)
+        start = int(self.heap_size / 2)  # first none leave item
+        for i in range(start, 0):
+            self.heapify(i)
 
     def heap_extract_max(self):
         pass
@@ -65,7 +68,7 @@ class MaxMinHeap:
         """
         Is the index in range of the array length
         """
-        return 0 <= i < len(self.array)
+        return 0 <= i < self.heap_size
 
 
 # Utility functions
@@ -97,6 +100,6 @@ def right(i):
 
 def depth_of(i):
     """
-    :returns the depth of i in the heap
+    :returns: the depth of i in the heap
     """
     return int(math.log(i, base=2))  # python floors the result be default when converting to int

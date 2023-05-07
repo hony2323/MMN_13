@@ -1,29 +1,28 @@
-def heapify(a, i):
-    pass
+class MaxMinHeap:
+    def __init__(self, array: list):
+        pass
+
+    def heapify(self, i):
+        pass
+
+    def build_heap(self):
+        pass
+
+    def heap_extract_max(self):
+        pass
+
+    def heap_extract_min(self):
+        pass
+
+    def heap_insert(self, key):
+        pass
+
+    def heap_delete(self, i):
+        pass
 
 
-def build_heap(a):
-    pass
-
-
-def heap_extract_max(a):
-    pass
-
-
-def heap_extract_min(a):
-    pass
-
-
-def heap_insert(a, key):
-    pass
-
-
-def heap_delete(a, i):
-    pass
-
-
-# Private functions
-def _parent(i):
+# Utility functions
+def parent(i):
     """
     :param i: the index of a Node
     :return: The Node's parent
@@ -33,7 +32,7 @@ def _parent(i):
     return i / 2  # python floors the result be default
 
 
-def _left(i):
+def left(i):
     """
     :param i: the index of a Node
     :return: The Node's left son
@@ -41,7 +40,7 @@ def _left(i):
     return 2 * i
 
 
-def _right(i):
+def right(i):
     """
     :param i: the index of a Node
     :return: The Node's right son

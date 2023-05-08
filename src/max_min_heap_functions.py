@@ -77,6 +77,10 @@ class MaxMinHeap:
         return max_item
 
     def heap_extract_min(self):
+        """
+        extracts the min item and
+        :returns: the min item
+        """
         # if there are no items then error
         if self.heap_size < 1:
             raise IndexError("heap overflow")

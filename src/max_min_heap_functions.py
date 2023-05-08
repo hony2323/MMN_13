@@ -8,42 +8,56 @@ class MaxMinHeap:
 
     def heapify(self, i):
         """
-        if the depth is even: seek max item and swap if needed and recursive call
-        if the depth is odd: seek min item and swap if needed and recursive call
+        make changes in a certain branch to order the items under a node correctly
+        :param i: node to heapify
         """
-        # Get sons and depth
-        r = right(i)
+        # Get sons and grandsons (lr is the left son of the right son)
         l = left(i)
+        r = right(i)
+        ll = left(l)
+        rl = right(l)
+        lr = left(r)
+        rr = right(r)
         depth = depth_of(i)
 
-        if depth % 2 == 0:  # depth is even
-            if self._index_valid(l) and self.array[l] > self.array[i]:  # is left son is valid and larger
-                max_index = l
-            else:
-                max_index = i
-            if self._index_valid(r) and self.array[r] > self.array[max_index]:  # is right son is valid and larger
-                max_index = r
-            if max_index != i:  # if index i is max then swap is not needed. else swap is needed and continuation
-                # commit swap
-                tmp = self.array[i]
-                self.array[i] = self.array[max_index]
-                self.array[max_index] = tmp
-                # call heapify again
-                self.heapify(max_index)
+        # I want to save duplication of code, so I store even the comparison function
+        if depth % 2 == 0:
+            comp = lambda x, y: x > y
         else:
-            if self._index_valid(l) and self.array[l] < self.array[i]:  # is left son is valid and smaller
-                min_index = l
-            else:
-                min_index = i
-            if self._index_valid(r) and self.array[r] < self.array[min_index]:  # is right son is valid and smaller
-                min_index = r
-            if min_index != i:  # if index i is min then swap is not needed. else swap is needed and continuation
-                # commit swap
-                tmp = self.array[i]
-                self.array[i] = self.array[min_index]
-                self.array[min_index] = tmp
-                # call heapify again
-                self.heapify(min_index)
+            comp = lambda x, y: x < y
+
+        if (not self._index_valid(l)) and (not self._index_valid(r)):  # no sons
+            # no need to heapify anymore
+            return
+
+        # get the best valid index out of the sons and grandsons
+        best_index = self._get_index_with_comp([i, l, r, ll, rl, lr, rr], comp)
+
+        # swap and continue if needed
+        # continue is not needed if 'i' is best, nor swap
+        if best_index != i:
+            tmp = self.array[i]
+            self.array[i] = self.array[best_index]
+            self.array[best_index] = tmp
+            # call heapify again
+            self.heapify(best_index)
+
+    def _get_index_with_comp(self, indices: list, comp: callable):
+        """
+        get the most compatible index of comp
+        (assuming the first index is valid)
+        :param indices: list of indices to compare
+        :param comp: comparison function
+        :return: the most compatible index of comp
+        """
+        if len(indices) == 0:
+            raise AttributeError("indices is empty")
+        best_index = indices[0]
+        for i in indices[1:]:
+            if self._index_valid(i):
+                if comp(i, best_index):
+                    best_index = i
+        return best_index
 
     def build_heap(self):
         """

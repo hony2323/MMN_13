@@ -178,7 +178,7 @@ def left(i):
     :param i: the index of a Node
     :return: The Node's left son
     """
-    return 2 * i
+    return 2 * i + 1  # because we start from zero
 
 
 def right(i):
@@ -186,11 +186,11 @@ def right(i):
     :param i: the index of a Node
     :return: The Node's right son
     """
-    return 2 * i + 1
+    return 2 * (i + 1)  # because we start from zero
 
 
 def depth_of(i):
     """
     :returns: the depth of i in the heap
     """
-    return int(math.log(i, base=2))  # python floors the result be default when converting to int
+    return int(math.log(i + 1, 2))  # python floors the result be default when converting to int

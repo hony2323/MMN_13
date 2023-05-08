@@ -107,7 +107,18 @@ class MaxMinHeap:
         return min_item
 
     def heap_insert(self, key):
-        pass
+        # Add the new key to the heap and increase size
+        if self.heap_size < len(self.array):
+            self.array[self.heap_size] = key
+        else:
+            self.array.append(key)
+        self.heap_size += 1
+
+        # Heapify every parent of the new item
+        i = self.heap_size - 1
+        while i > 0:
+            self.heapify(parent(i))
+            i -= 1
 
     def heap_delete(self, i):
         pass

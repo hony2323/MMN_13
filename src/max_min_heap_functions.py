@@ -46,8 +46,13 @@ class MaxMinHeap:
                 self.heapify(min_index)
 
     def build_heap(self):
+        """
+        iterate the heap from the last item that is not at the last depth
+        and start heapfing backwards 
+        :return:
+        """
         self.heap_size = len(self.array)
-        start = int(self.heap_size / 2)  # first none leave item
+        start = int(self.heap_size / 2)  # first none last depth item
         for i in range(start, 0):
             self.heapify(i)
 

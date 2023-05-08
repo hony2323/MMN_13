@@ -7,10 +7,12 @@ def check_max_min_heap(mmh: MaxMinHeap, i):
     if i >= mmh.heap_size:
         return True
     if depth_of(i) % 2 == 0:
-        if mmh.array[i] < mmh.array[left(i)] or mmh.array[i] < mmh.array[right(i)]:
+        if (left(i) < mmh.heap_size and mmh.array[i] < mmh.array[left(i)]) or (
+                right(i) < mmh.heap_size and mmh.array[i] < mmh.array[right(i)]):
             return False
     else:
-        if mmh.array[i] > mmh.array[left(i)] or mmh.array[i] > mmh.array[right(i)]:
+        if (left(i) < mmh.heap_size and mmh.array[i] > mmh.array[left(i)]) or (
+                right(i) < mmh.heap_size and mmh.array[i] > mmh.array[right(i)]):
             return False
     return check_max_min_heap(mmh, left(i)) and check_max_min_heap(mmh, right(i))
 

@@ -41,6 +41,9 @@ class MaxMinHeap:
             self.array[best_index] = tmp
             # call heapify again
             self.heapify(best_index)
+            # turns out there is a need to call heapify on the sons again
+            self.heapify(left(i))
+            self.heapify(right(i))
 
     def build_heap(self):
         """
@@ -48,8 +51,8 @@ class MaxMinHeap:
         and start heapifing backwards
         """
         self.heap_size = len(self.array)
-        start = int(self.heap_size / 2)  # first none last depth item
-        for i in range(start, 0):
+        start = int(self.heap_size / 2) - 1  # first none last depth item
+        for i in range(start, -1, -1):
             self.heapify(i)
 
     def heap_extract_max(self):
@@ -157,7 +160,7 @@ class MaxMinHeap:
         best_index = indices[0]
         for i in indices[1:]:
             if self._index_valid(i):
-                if comp(i, best_index):
+                if comp(self.array[i], self.array[best_index]):
                     best_index = i
         return best_index
 

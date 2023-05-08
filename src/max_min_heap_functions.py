@@ -48,7 +48,7 @@ class MaxMinHeap:
     def build_heap(self):
         """
         iterate the heap from the last item that is not at the last depth
-        and start heapfing backwards
+        and start heapifing backwards
         """
         self.heap_size = len(self.array)
         start = int(self.heap_size / 2)  # first none last depth item
@@ -71,12 +71,36 @@ class MaxMinHeap:
         self.array[0] = self.array[self.heap_size - 1]
         self.heap_size -= 1
 
-        # heapfiy the new item to it's right place
-        self.heapify(0)
+        # heapify the new item to it's right place
+        if self.heap_size > 1:  # else heapify is unnecessary
+            self.heapify(0)
         return max_item
 
     def heap_extract_min(self):
-        pass
+        # if there are no items then error
+        if self.heap_size < 1:
+            raise IndexError("heap overflow")
+
+        min_index = 0
+        l = 1  # left son
+        r = 2  # right son
+
+        # get the minimum index out of the three nodes (check existing also)
+        if self._index_valid(l) and self.array[l] < self.array[min_index]:
+            min_index = l
+        if self._index_valid(r) and self.array[r] < self.array[min_index]:
+            min_index = r
+        # get min item
+        min_item = self.array[min_index]
+
+        # swap the last item with the min and decrease size of heap
+        self.array[min_index] = self.array[self.heap_size - 1]
+        self.heap_size -= 1
+
+        # heapify the new item to it's right place
+        if self.heap_size > 1:  # else heapify is unnecessary
+            self.heapify(min_index)
+        return min_item
 
     def heap_insert(self, key):
         pass

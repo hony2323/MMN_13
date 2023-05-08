@@ -107,6 +107,10 @@ class MaxMinHeap:
         return min_item
 
     def heap_insert(self, key):
+        """
+        insert the new value correctly
+        :param key: new value to insert  
+        """
         # Add the new key to the heap and increase size
         if self.heap_size < len(self.array):
             self.array[self.heap_size] = key

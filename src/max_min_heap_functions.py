@@ -62,7 +62,7 @@ class MaxMinHeap:
         """
         # if there are no items then error
         if self.heap_size < 1:
-            raise IndexError("heap overflow")
+            raise IndexError("heap is empty, can't extract")
 
         # get the max item
         max_item = self.array[0]
@@ -83,7 +83,7 @@ class MaxMinHeap:
         """
         # if there are no items then error
         if self.heap_size < 1:
-            raise IndexError("heap overflow")
+            raise IndexError("heap is empty, can't extract")
 
         min_index = 0
         l = 1  # left son
@@ -109,7 +109,7 @@ class MaxMinHeap:
     def heap_insert(self, key):
         """
         insert the new value correctly
-        :param key: new value to insert  
+        :param key: new value to insert
         """
         # Add the new key to the heap and increase size
         if self.heap_size < len(self.array):
@@ -125,7 +125,20 @@ class MaxMinHeap:
             i -= 1
 
     def heap_delete(self, i):
-        pass
+        # i can't be deleted from heap
+        if self.heap_size < 1:
+            raise IndexError("heap is empty, can't extract")
+        if i > self.heap_size - 1:
+            raise IndexError(f"i ({i}) is bigger then heap_size ({self.heap_size})")
+
+        # save item, swap with last item, decrease size
+        item = self.array[i]
+        self.array[i] = self.array[self.heap_size - 1]
+        self.heap_size -= 1
+
+        if self.heap_size > 1:
+            self.heapify(i)
+        return item
 
     # Private functions
     def _index_valid(self, i) -> bool:

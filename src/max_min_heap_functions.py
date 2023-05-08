@@ -65,7 +65,7 @@ class MaxMinHeap:
             raise IndexError("heap overflow")
 
         # get the max item
-        max_index = self.array[0]
+        max_item = self.array[0]
 
         # swap the last item with the first and decrease size of heap
         self.array[0] = self.array[self.heap_size - 1]
@@ -73,7 +73,7 @@ class MaxMinHeap:
 
         # heapfiy the new item to it's right place
         self.heapify(0)
-        return max_index
+        return max_item
 
     def heap_extract_min(self):
         pass

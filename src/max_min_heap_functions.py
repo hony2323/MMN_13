@@ -42,23 +42,6 @@ class MaxMinHeap:
             # call heapify again
             self.heapify(best_index)
 
-    def _get_index_with_comp(self, indices: list, comp: callable):
-        """
-        get the most compatible index of comp
-        (assuming the first index is valid)
-        :param indices: list of indices to compare
-        :param comp: comparison function
-        :return: the most compatible index of comp
-        """
-        if len(indices) == 0:
-            raise AttributeError("indices is empty")
-        best_index = indices[0]
-        for i in indices[1:]:
-            if self._index_valid(i):
-                if comp(i, best_index):
-                    best_index = i
-        return best_index
-
     def build_heap(self):
         """
         iterate the heap from the last item that is not at the last depth
@@ -160,6 +143,23 @@ class MaxMinHeap:
         Is the index in range of the array length
         """
         return 0 <= i < self.heap_size
+
+    def _get_index_with_comp(self, indices: list, comp: callable):
+        """
+        get the most compatible index of comp
+        (assuming the first index is valid)
+        :param indices: list of indices to compare
+        :param comp: comparison function
+        :return: the most compatible index of comp
+        """
+        if len(indices) == 0:
+            raise AttributeError("indices is empty")
+        best_index = indices[0]
+        for i in indices[1:]:
+            if self._index_valid(i):
+                if comp(i, best_index):
+                    best_index = i
+        return best_index
 
 
 # Utility functions

@@ -48,8 +48,7 @@ class MaxMinHeap:
     def build_heap(self):
         """
         iterate the heap from the last item that is not at the last depth
-        and start heapfing backwards 
-        :return:
+        and start heapfing backwards
         """
         self.heap_size = len(self.array)
         start = int(self.heap_size / 2)  # first none last depth item
@@ -57,7 +56,24 @@ class MaxMinHeap:
             self.heapify(i)
 
     def heap_extract_max(self):
-        pass
+        """
+        extracts the max item in the heap (which is the first one)
+        :returns: the max item in the list
+        """
+        # if there are no items then error
+        if self.heap_size < 1:
+            raise IndexError("heap overflow")
+
+        # get the max item
+        max_item = self.array[0]
+
+        # swap the last item with the first and decrease size of heap
+        self.array[0] = self.array[self.heap_size - 1]
+        self.heap_size -= 1
+
+        # heapfiy the new item to it's right place
+        self.heapify(0)
+        return max_item
 
     def heap_extract_min(self):
         pass

@@ -1,7 +1,7 @@
 import json
 import os
 
-from max_min_heap import MaxMinHeap
+from max_min_heap import MaxMinHeap, MaxMinHeapError
 from validation import validate_max_min_heap
 
 
@@ -19,6 +19,8 @@ class Menu:
             self.print_menu()
             try:
                 print(self.handle_selection() or "")
+            except MaxMinHeapError as e:
+                print(f"\n{e}")
             except Exception as e:
                 print("an error as occurred, try again...")
 

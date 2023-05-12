@@ -62,7 +62,7 @@ class MaxMinHeap:
         """
         # if there are no items then error
         if self.heap_size < 1:
-            raise IndexError("heap is empty, can't extract")
+            raise MaxMinHeapError("heap is empty, can't extract")
 
         # get the max item
         max_item = self.array[0]
@@ -83,7 +83,7 @@ class MaxMinHeap:
         """
         # if there are no items then error
         if self.heap_size < 1:
-            raise IndexError("heap is empty, can't extract")
+            raise MaxMinHeapError("heap is empty, can't extract")
 
         min_index = 0
         l = 1  # left son
@@ -127,9 +127,9 @@ class MaxMinHeap:
     def heap_delete(self, i):
         # i can't be deleted from heap
         if self.heap_size < 1:
-            raise IndexError("heap is empty, can't extract")
+            raise MaxMinHeapError("heap is empty, can't extract")
         if i > self.heap_size - 1:
-            raise IndexError(f"i ({i}) is bigger then heap_size ({self.heap_size})")
+            raise MaxMinHeapError(f"i ({i}) is bigger then heap_size ({self.heap_size})")
 
         # save item, swap with last item, decrease size
         item = self.array[i]
@@ -156,7 +156,7 @@ class MaxMinHeap:
         :return: the most compatible index of comp
         """
         if len(indices) == 0:
-            raise AttributeError("indices is empty")
+            raise MaxMinHeapError("indices is empty")
         best_index = indices[0]
         for i in indices[1:]:
             if self.index_valid(i):
@@ -175,7 +175,7 @@ def parent(i):
     :return: The Node's parent
     """
     if i == 0:
-        raise IndexError("Tried to find the parent of root")
+        raise MaxMinHeapError("Tried to find the parent of root")
     return int(i / 2)  # python floors the result be default when converting to int
 
 
@@ -200,3 +200,7 @@ def depth_of(i):
     :returns: the depth of i in the heap
     """
     return int(math.log(i + 1, 2))  # python floors the result be default when converting to int
+
+
+class MaxMinHeapError(Exception):
+    pass

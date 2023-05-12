@@ -11,7 +11,7 @@ on the right directory, use: `.\venv\Scripts\python.exe .\src\main.py`
 
 ## Errors
 if there is and error with the paths of stuff, try putting your project's \
-path in the ROOT_DIR in the main directory
+path in the ROOT_DIR in the `main.py` file
 <br/>
 <br/>
 

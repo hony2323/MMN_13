@@ -49,5 +49,5 @@ class Menu:
 
     def print_menu(self, menu: dict):
         for key in menu.keys():
-            , msg = menu[key]
+            func , msg = menu[key]
             print(f"{key} - {msg}")

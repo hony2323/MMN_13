@@ -6,7 +6,7 @@ from max_min_heap import MaxMinHeap
 
 class Menu:
     def __init__(self, root_dir):
-        root_dir = root_dir or os.path.dirname(os.path.abspath(__file__))
+        self.root_dir = root_dir or os.path.dirname(os.path.abspath(__file__))
         self.mmh = MaxMinHeap([])
         self.running = False
         self.menu = self._first_menu()
@@ -16,21 +16,20 @@ class Menu:
         while self.running:
             self.print_menu()
             try:
-                self.handle_selection()
-            except Exception:
+                print(self.handle_selection() or "")
+            except Exception as e:
                 print("an error as occurred, try again...")
-            print(self.mmh.array)
-    # def handle_input(self, ):
-    #     pass
 
     def handle_selection(self):
 
         i = str(input("choose option: "))
         try:
-            func, msg = self.menu[i]
+            func, msg, *no_params = self.menu[i]
         except KeyError as e:
             print(f"\n {i} is not an option \n")
             raise e
+        if no_params:
+            return func()
         i = str(input("write your input: "))
         return func(i)
 
@@ -39,16 +38,34 @@ class Menu:
         return {
             "1": (self._file_replace_heap, "write file path (relative to src/)"),
             "2": (self._string_replace_heap, "write you heap in this format [x,x,x,x,x,x,x,....] (including [])"),
-            "x": (exit, "exit the application")
+            "s": (lambda: self._switch_menu(self._second_menu()), "skip menu", True),
+            "p": (lambda: print(self.mmh.array), "print current heap", True),
+            "x": (self.end_loop, "exit the application", True)
         }
 
     def _second_menu(self):
-        return {}
+        return {
+            "1": (self.mmh.build_heap, "build heap", True),
+            "2": (self.mmh.heapify, "heapify"),
+            "3": (self.mmh.heap_insert, "insert"),
+            "4": (self.mmh.heap_extract_min, "extract min"),
+            "5": (self.mmh.heap_extract_max, "extract max"),
+            "6": (self.mmh.heap_delete, "delete"),
+            "b": (lambda: self._switch_menu(self._first_menu()), "go back to first menu", True),
+            "p": (lambda: print(self.mmh.array), "print current heap", True),
+            "x": (self.end_loop, "exit the application", True)
+        }
+
+    def end_loop(self):
+        self.running = False
+
+    def _switch_menu(self, menu):
+        self.menu = menu
 
     # ------ PART OF FIRST MENU ---------
     def _file_replace_heap(self, path_to_file):
         try:
-            with open(path_to_file, 'r') as f:
+            with open(os.path.join(self.root_dir, path_to_file), 'r') as f:
                 self.mmh = MaxMinHeap(json.load(f))
         except FileNotFoundError as e:
             print(f"\n file {path_to_file} not found \n")
@@ -65,5 +82,5 @@ class Menu:
 
     def print_menu(self):
         for key in self.menu.keys():
-            func, msg = self.menu[key]
+            func, msg, *no_params = self.menu[key]
             print(f"{key} - {msg}")

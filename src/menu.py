@@ -15,19 +15,31 @@ class Menu:
         self.running = True
         while self.running:
             self.print_menu()
-            self.handle_selection()
-
+            try:
+                self.handle_selection()
+            except Exception:
+                print("an error as occurred, try again...")
+            print(self.mmh.array)
     # def handle_input(self, ):
     #     pass
 
     def handle_selection(self):
-        a = input()
+
+        i = str(input("choose option: "))
+        try:
+            func, msg = self.menu[i]
+        except KeyError as e:
+            print(f"\n {i} is not an option \n")
+            raise e
+        i = str(input("write your input: "))
+        return func(i)
 
     # Menu initializations
     def _first_menu(self):
         return {
             "1": (self._file_replace_heap, "write file path (relative to src/)"),
             "2": (self._string_replace_heap, "write you heap in this format [x,x,x,x,x,x,x,....] (including [])"),
+            "x": (exit, "exit the application")
         }
 
     def _second_menu(self):
@@ -46,7 +58,7 @@ class Menu:
     def _string_replace_heap(self, s):
         ls = json.loads(s)
         if not type(ls) == list:
-            print("\nthe input is not a list\n")
+            print("\n the input is not a list \n")
             raise Exception()
         self.mmh = MaxMinHeap(json.loads(s))
         self.menu = self._second_menu()

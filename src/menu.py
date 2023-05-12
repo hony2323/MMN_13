@@ -15,6 +15,7 @@ class Menu:
     def start(self):
         self.running = True
         while self.running:
+            print("\n")
             self.print_menu()
             try:
                 print(self.handle_selection() or "")
@@ -42,7 +43,7 @@ class Menu:
             "s": (lambda: self._switch_menu(self._second_menu()), "skip menu", True),
             "v": (lambda: str(validate_max_min_heap(self.mmh, 0, 0)),
                   "(for dev but feel free to use) validate the algorithm of the build_heap", True),
-            "p": (lambda: print(self.mmh.array), "print current heap", True),
+            "p": (lambda: str(self.mmh.array), "print current heap", True),
             "x": (self.end_loop, "exit the application", True)
         }
 
@@ -50,16 +51,24 @@ class Menu:
         return {
             "1": (self.mmh.build_heap, "build heap", True),
             "2": (self.mmh.heapify, "heapify"),
-            "3": (self.mmh.heap_insert, "insert"),
+            "3": (self.insert, "insert"),
             "4": (self.mmh.heap_extract_min, "extract min"),
             "5": (self.mmh.heap_extract_max, "extract max"),
             "6": (self.mmh.heap_delete, "delete"),
             "b": (lambda: self._switch_menu(self._first_menu()), "go back to first menu", True),
-            "p": (lambda: print(self.mmh.array), "print current heap", True),
+            "p": (lambda: str(self.mmh.array), "print current heap", True),
             "v": (lambda: str(validate_max_min_heap(self.mmh, 0, 0)),
                   "(for dev but feel free to use) validate the algorithm of the build_heap", True),
             "x": (self.end_loop, "exit the application", True)
         }
+
+    def insert(self, x):
+        try:
+            self.mmh.heap_insert(float(x))
+        except ValueError as e:
+            print(f"\ncan't convert {x} to float")
+            raise e
+
 
     def end_loop(self):
         self.running = False

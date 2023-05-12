@@ -2,6 +2,7 @@ import json
 import os
 
 from max_min_heap import MaxMinHeap
+from validation import validate_max_min_heap
 
 
 class Menu:
@@ -39,6 +40,8 @@ class Menu:
             "1": (self._file_replace_heap, "write file path (relative to src/)"),
             "2": (self._string_replace_heap, "write you heap in this format [x,x,x,x,x,x,x,....] (including [])"),
             "s": (lambda: self._switch_menu(self._second_menu()), "skip menu", True),
+            "v": (lambda: str(validate_max_min_heap(self.mmh, 0, 0)),
+                  "(for dev but feel free to use) validate the algorithm of the build_heap", True),
             "p": (lambda: print(self.mmh.array), "print current heap", True),
             "x": (self.end_loop, "exit the application", True)
         }
@@ -53,6 +56,8 @@ class Menu:
             "6": (self.mmh.heap_delete, "delete"),
             "b": (lambda: self._switch_menu(self._first_menu()), "go back to first menu", True),
             "p": (lambda: print(self.mmh.array), "print current heap", True),
+            "v": (lambda: str(validate_max_min_heap(self.mmh, 0, 0)),
+                  "(for dev but feel free to use) validate the algorithm of the build_heap", True),
             "x": (self.end_loop, "exit the application", True)
         }
 

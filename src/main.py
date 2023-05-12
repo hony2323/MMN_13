@@ -1,8 +1,8 @@
 import os
 import json
 from max_min_heap import *
+from menu import Menu
 
-from src.menu import Menu
 from validation import validate_max_min_heap
 
 ROOT_DIR = ""  # fill if there are errors with the dir (default should be automatic for your correct path)

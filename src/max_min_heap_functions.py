@@ -26,7 +26,7 @@ class MaxMinHeap:
         else:
             comp = lambda x, y: x < y
 
-        if (not self._index_valid(l)) and (not self._index_valid(r)):  # no sons
+        if (not self.index_valid(l)) and (not self.index_valid(r)):  # no sons
             # no need to heapify anymore
             return
 
@@ -90,9 +90,9 @@ class MaxMinHeap:
         r = 2  # right son
 
         # get the minimum index out of the three nodes (check existing also)
-        if self._index_valid(l) and self.array[l] < self.array[min_index]:
+        if self.index_valid(l) and self.array[l] < self.array[min_index]:
             min_index = l
-        if self._index_valid(r) and self.array[r] < self.array[min_index]:
+        if self.index_valid(r) and self.array[r] < self.array[min_index]:
             min_index = r
         # get min item
         min_item = self.array[min_index]
@@ -141,7 +141,7 @@ class MaxMinHeap:
         return item
 
     # Private functions
-    def _index_valid(self, i) -> bool:
+    def index_valid(self, i) -> bool:
         """
         Is the index in range of the array length
         """
@@ -159,10 +159,13 @@ class MaxMinHeap:
             raise AttributeError("indices is empty")
         best_index = indices[0]
         for i in indices[1:]:
-            if self._index_valid(i):
+            if self.index_valid(i):
                 if comp(self.array[i], self.array[best_index]):
                     best_index = i
         return best_index
+
+    def __getitem__(self, item):
+        return self.array[item]
 
 
 # Utility functions

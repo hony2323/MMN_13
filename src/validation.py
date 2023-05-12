@@ -1,4 +1,4 @@
-from src.max_min_heap_functions import MaxMinHeap, right, left
+from src.max_min_heap import MaxMinHeap, right, left
 
 
 def validate_max_min_heap(mmh, i, depth):

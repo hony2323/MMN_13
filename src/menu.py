@@ -52,7 +52,7 @@ class Menu:
     def _second_menu(self):
         return {
             "1": (self.mmh.build_heap, "build heap", True),
-            "2": (self.mmh.heapify, "heapify"),
+            "2": (lambda x: self.mmh.heapify(int(x)), "heapify"),
             "3": (self.insert, "insert"),
             "4": (self.mmh.heap_extract_min, "extract min", True),
             "5": (self.mmh.heap_extract_max, "extract max", True),

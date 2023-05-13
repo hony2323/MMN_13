@@ -120,7 +120,7 @@ class MaxMinHeap:
 
         # Heapify every parent of the new item
         i = self.heap_size - 1
-        while i > 0:
+        while i >= 0:
             self.heapify(parent(i))
             i -= 1
 
